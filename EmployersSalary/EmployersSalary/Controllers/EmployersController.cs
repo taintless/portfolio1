@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Security;
 using EmployersSalary.Models;
 using Microsoft.AspNet.Identity;
+using EmployersSalary.Business;
 
 namespace EmployersSalary.Controllers
 {
     [System.Web.Mvc.Authorize]
     public class EmployersController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly EmployersBusiness _employersBusiness;
+        private readonly ApplicationDbContext _context;
+        private readonly ApplicationUserBusiness _applicationUser;
 
         public EmployersController()
         {
             _context = new ApplicationDbContext();
+            _employersBusiness = new EmployersBusiness(_context);
+            _applicationUser = new ApplicationUserBusiness(_context);
         }
 
         protected override void Dispose(bool disposing)
@@ -34,11 +36,11 @@ namespace EmployersSalary.Controllers
                 return View("ListReadOnly");
 
             var loggedUserId = User.Identity.GetUserId();
-            var user = _context.Users.Include(u => u.Employer).Single(u => u.Id == loggedUserId);
-            var employer =
-                _context.Employers.Single(
-                    e => e.FirstName == user.Employer.FirstName && e.LastName == user.Employer.LastName);
+            var user = _applicationUser.GetUser(loggedUserId);
+            var employer = _employersBusiness.GetEmployer(user.Employer.FirstName, user.Employer.LastName);
 
+            if (employer == null)
+                throw new System.Exception("Employer doesn't exist.");
 
             return View("ListEmployer", employer);
         }
@@ -46,23 +48,18 @@ namespace EmployersSalary.Controllers
 
         [System.Web.Mvc.Authorize(Roles = RoleName.Admin)]
         [System.Web.Mvc.HttpPost]
-        public ActionResult Save(Employer employer)
+        public ActionResult Save(EmployerViewModel employer)
         {
             if (!ModelState.IsValid)
-            {
-                var viewModel = new Employer
-                {
-                    FirstName = employer.FirstName,
-                    LastName = employer.LastName,
-                    NetSalary = employer.NetSalary
-                };
+                return View("EmployerForm", employer);
 
-                return View("EmployerForm", viewModel);
-            }
+            var employerInDb = _employersBusiness.GetEmployer(employer.FirstName, employer.LastName);
 
-            var employerInDb =
-                _context.Employers.Single(e => e.FirstName == employer.FirstName && e.LastName == employer.LastName);
-            employerInDb.NetSalary = employer.NetSalary;
+            if (employerInDb == null)
+                throw new System.Exception("Employer doesn't exist.");
+
+            if (employer.NetSalary.HasValue)
+                employerInDb.UpdateSalary(employer.NetSalary ?? default(float));
 
             _context.SaveChanges();
 
@@ -73,11 +70,19 @@ namespace EmployersSalary.Controllers
         public ActionResult Edit([FromUri] string firstName, string lastName)
         {
 
-            var employer = _context.Employers.SingleOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
-            if (employer == null)
-                return HttpNotFound();
+            var employer = _employersBusiness.GetEmployer(firstName, lastName);
 
-            return View("EmployerForm", employer);
+            if (employer == null)
+                throw new System.Exception("Employer doesn't exist.");
+
+            var employerViewModel = new EmployerViewModel
+            {
+                FirstName = employer.FirstName,
+                LastName = employer.LastName,
+                NetSalary = employer.NetSalary
+            };
+
+            return View("EmployerForm", employerViewModel);
         }
 
         public ActionResult FileUpload(HttpPostedFileBase file)

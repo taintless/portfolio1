@@ -190,3 +190,5 @@ D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.csproj.GenerateResource.Cache
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.dll
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.pdb
+D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.addedParametersToEmployerModel.resources
+D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.EmployersModelDisabledSettedToNullable.resources

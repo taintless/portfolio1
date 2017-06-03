@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
-using System.Data.Entity;
-using System.Web.Security;
 using EmployersSalary.Models;
-using Microsoft.AspNet.Identity;
+using EmployersSalary.Business;
 
 namespace EmployersSalary.Controllers.Api
 {
     [Authorize]
     public class EmployersController : ApiController
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+        private readonly EmployersBusiness _employersBusiness;
 
         public EmployersController()
         {
             _context = new ApplicationDbContext();
+            _employersBusiness = new EmployersBusiness(_context);
         }
 
         // GET /api/employers
@@ -26,7 +22,7 @@ namespace EmployersSalary.Controllers.Api
         [Authorize(Roles = RoleName.Admin + "," + RoleName.ProjectManager)]
         public IHttpActionResult GetEmployers()
         {
-            var employers = _context.Employers.Where(e => e.FirstName != "Admin");
+            var employers = _employersBusiness.GetEmployers().ToList();
 
             return Ok(employers);
         }
@@ -36,7 +32,7 @@ namespace EmployersSalary.Controllers.Api
         [Route("api/employer")]
         public IHttpActionResult GetEmployer([FromUri] string firstName, string lastName)
         {
-            var employer = _context.Employers.SingleOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
+            var employer = _employersBusiness.GetEmployer(firstName, lastName);
 
             if (employer == null)
                 return NotFound();
@@ -44,34 +40,21 @@ namespace EmployersSalary.Controllers.Api
             return Ok(employer);
         }
 
-        // POST /api/employers
-        //[Authorize(Roles = RoleName.Admin)]
-        //[HttpPost]
-        //[Route("api/employers")]
-        //public IHttpActionResult CreateEmployer(Employer employer)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest();
-
-        //    _context.Employers.Add(employer);
-        //    _context.SaveChanges();
-
-
-        //    return Created(new Uri(Request.RequestUri + "/" + employer.FirstName + "/" + employer.LastName), employer);
-        //}
-
         // PUT /api/employers?firstname=firstName&lastname=lastName
         [Authorize(Roles = RoleName.Admin)]
         [HttpPut]
         [Route("api/employers")]
-        public IHttpActionResult UpdateEmployer([FromUri] string firstName, string lastName, Employer employer)
+        public IHttpActionResult UpdateEmployerSalary([FromUri] string firstName, string lastName, Employer employer)
         {
-            var employerInDb = _context.Employers.SingleOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
+            var employerInDb = _employersBusiness.GetEmployer(firstName, lastName);
 
             if (employerInDb == null)
                 return NotFound();
 
-            employerInDb.NetSalary = employer.NetSalary;
+            if (!employer.NetSalary.HasValue)
+                return BadRequest();
+
+            employerInDb.UpdateSalary(employer.NetSalary ?? default(float));
 
             _context.SaveChanges();
 
@@ -84,12 +67,13 @@ namespace EmployersSalary.Controllers.Api
         [Route("api/employers")]
         public IHttpActionResult DeleteEmployer([FromUri] string firstName, string lastName)
         {
-            var employerInDb = _context.Employers.SingleOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
+            var employerInDb = _employersBusiness.GetEmployer(firstName, lastName);
 
             if (employerInDb == null)
                 return NotFound();
 
-            _context.Employers.Remove(employerInDb);
+            employerInDb.Disable();
+
             _context.SaveChanges();
 
             return Ok();

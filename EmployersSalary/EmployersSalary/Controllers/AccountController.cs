@@ -166,7 +166,7 @@ namespace EmployersSalary.Controllers
                         Employer = new Employer
                         {
                             FirstName = model.FirstName,
-                            LastName = model.LastName
+                            LastName = model.LastName,
                         }
                     };
 
