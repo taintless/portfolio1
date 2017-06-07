@@ -2,27 +2,25 @@
 using System.Web.Http;
 using EmployersSalary.Models;
 using EmployersSalary.Business;
+using EmployersSalary.Services;
 
 namespace EmployersSalary.Controllers.Api
 {
-    [Authorize]
+    //[Authorize]
     public class EmployersController : ApiController
     {
-        private readonly ApplicationDbContext _context;
-        private readonly EmployersBusiness _employersBusiness;
-
-        public EmployersController()
+        private readonly IUnitOfWork _unitOfWork;
+        public EmployersController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
-            _employersBusiness = new EmployersBusiness(_context);
+            _unitOfWork = unitOfWork;
         }
 
         // GET /api/employers
         [Route("api/employers")]
-        [Authorize(Roles = RoleName.Admin + "," + RoleName.ProjectManager)]
+        //[Authorize(Roles = RoleName.Admin + "," + RoleName.ProjectManager)]
         public IHttpActionResult GetEmployers()
         {
-            var employers = _employersBusiness.GetEmployers().ToList();
+            var employers = _unitOfWork.Employers.GetEmployers().ToList();
 
             return Ok(employers);
         }
@@ -32,7 +30,7 @@ namespace EmployersSalary.Controllers.Api
         [Route("api/employer")]
         public IHttpActionResult GetEmployer([FromUri] string firstName, string lastName)
         {
-            var employer = _employersBusiness.GetEmployer(firstName, lastName);
+            var employer = _unitOfWork.Employers.GetEmployer(firstName, lastName);
 
             if (employer == null)
                 return NotFound();
@@ -46,7 +44,7 @@ namespace EmployersSalary.Controllers.Api
         [Route("api/employers")]
         public IHttpActionResult UpdateEmployerSalary([FromUri] string firstName, string lastName, Employer employer)
         {
-            var employerInDb = _employersBusiness.GetEmployer(firstName, lastName);
+            var employerInDb = _unitOfWork.Employers.GetEmployer(firstName, lastName);
 
             if (employerInDb == null)
                 return NotFound();
@@ -56,7 +54,7 @@ namespace EmployersSalary.Controllers.Api
 
             employerInDb.UpdateSalary(employer.NetSalary ?? default(float));
 
-            _context.SaveChanges();
+            _unitOfWork.Comlete();
 
             return Ok();
         }
@@ -67,14 +65,14 @@ namespace EmployersSalary.Controllers.Api
         [Route("api/employers")]
         public IHttpActionResult DeleteEmployer([FromUri] string firstName, string lastName)
         {
-            var employerInDb = _employersBusiness.GetEmployer(firstName, lastName);
+            var employerInDb = _unitOfWork.Employers.GetEmployer(firstName, lastName);
 
             if (employerInDb == null)
                 return NotFound();
 
             employerInDb.Disable();
 
-            _context.SaveChanges();
+            _unitOfWork.Comlete();
 
             return Ok();
         }

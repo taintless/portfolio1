@@ -1,11 +1,12 @@
 ﻿using EmployersSalary.Models;
+using EmployersSalary.Services;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace EmployersSalary.Business
 {
-    public class EmployersBusiness
+    public class EmployersBusiness : IEmployersBusiness
     {
         private readonly ApplicationDbContext _context;
 

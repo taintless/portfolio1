@@ -1,4 +1,5 @@
 ﻿using EmployersSalary.Models;
+using EmployersSalary.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace EmployersSalary.Business
 {
-    public class ApplicationUserBusiness
+    public class ApplicationUserBusiness : IApplicationUserBusiness
     {
         private readonly ApplicationDbContext _context;
 

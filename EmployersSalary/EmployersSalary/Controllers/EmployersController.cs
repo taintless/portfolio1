@@ -6,27 +6,20 @@ using System.Web.Mvc;
 using EmployersSalary.Models;
 using Microsoft.AspNet.Identity;
 using EmployersSalary.Business;
+using EmployersSalary.Services;
 
 namespace EmployersSalary.Controllers
 {
     [System.Web.Mvc.Authorize]
     public class EmployersController : Controller
     {
-        private readonly EmployersBusiness _employersBusiness;
-        private readonly ApplicationDbContext _context;
-        private readonly ApplicationUserBusiness _applicationUser;
 
-        public EmployersController()
+        private readonly IUnitOfWork _unitOfWork;
+        public EmployersController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
-            _employersBusiness = new EmployersBusiness(_context);
-            _applicationUser = new ApplicationUserBusiness(_context);
+            _unitOfWork = unitOfWork;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
         public ViewResult Index()
         {
             
@@ -36,8 +29,8 @@ namespace EmployersSalary.Controllers
                 return View("ListReadOnly");
 
             var loggedUserId = User.Identity.GetUserId();
-            var user = _applicationUser.GetUser(loggedUserId);
-            var employer = _employersBusiness.GetEmployer(user.Employer.FirstName, user.Employer.LastName);
+            var user = _unitOfWork.Users.GetUser(loggedUserId);
+            var employer = _unitOfWork.Employers.GetEmployer(user.Employer.FirstName, user.Employer.LastName);
 
             if (employer == null)
                 throw new System.Exception("Employer doesn't exist.");
@@ -53,7 +46,7 @@ namespace EmployersSalary.Controllers
             if (!ModelState.IsValid)
                 return View("EmployerForm", employer);
 
-            var employerInDb = _employersBusiness.GetEmployer(employer.FirstName, employer.LastName);
+            var employerInDb = _unitOfWork.Employers.GetEmployer(employer.FirstName, employer.LastName);
 
             if (employerInDb == null)
                 throw new System.Exception("Employer doesn't exist.");
@@ -61,7 +54,7 @@ namespace EmployersSalary.Controllers
             if (employer.NetSalary.HasValue)
                 employerInDb.UpdateSalary(employer.NetSalary ?? default(float));
 
-            _context.SaveChanges();
+            _unitOfWork.Comlete();
 
             return RedirectToAction("Index", "Employers");
         }
@@ -70,7 +63,7 @@ namespace EmployersSalary.Controllers
         public ActionResult Edit([FromUri] string firstName, string lastName)
         {
 
-            var employer = _employersBusiness.GetEmployer(firstName, lastName);
+            var employer = _unitOfWork.Employers.GetEmployer(firstName, lastName);
 
             if (employer == null)
                 throw new System.Exception("Employer doesn't exist.");
@@ -90,7 +83,7 @@ namespace EmployersSalary.Controllers
             if (file != null || file.ContentType.StartsWith("image/"))
             {
                 var loggedUserId = User.Identity.GetUserId();
-                var loggedUser = _context.Users.Include(u => u.Employer).Single(u => u.Id == loggedUserId);
+                var loggedUser = _unitOfWork.Users.GetUser(loggedUserId);
                 string pic = System.IO.Path.GetFileName(loggedUser.Employer.FirstName + loggedUser.Employer.LastName+ ".png");
                 string path = System.IO.Path.Combine(
                                         Server.MapPath(MyConstants.profileImagesPath), pic);
