@@ -8,6 +8,7 @@ namespace EmployersSalary.Models
 {
     public class EmployerViewModel
     {
+        public int Id { get; set; }
         [StringLength(225)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
