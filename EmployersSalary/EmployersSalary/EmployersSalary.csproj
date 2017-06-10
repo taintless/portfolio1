@@ -278,6 +278,10 @@
     <Compile Include="Migrations\201702170327241_ChangedIdentityModel.Designer.cs">
       <DependentUpon>201702170327241_ChangedIdentityModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702170359474_SeedingRoles.cs" />
+    <Compile Include="Migrations\201702170359474_SeedingRoles.Designer.cs">
+      <DependentUpon>201702170359474_SeedingRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201706030838489_addedParametersToEmployerModel.cs" />
     <Compile Include="Migrations\201706030838489_addedParametersToEmployerModel.Designer.cs">
       <DependentUpon>201706030838489_addedParametersToEmployerModel.cs</DependentUpon>
@@ -285,26 +289,6 @@
     <Compile Include="Migrations\201706030925021_EmployersModelDisabledSettedToNullable.cs" />
     <Compile Include="Migrations\201706030925021_EmployersModelDisabledSettedToNullable.Designer.cs">
       <DependentUpon>201706030925021_EmployersModelDisabledSettedToNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706101616031_AddedIdToEmployerModel.cs" />
-    <Compile Include="Migrations\201706101616031_AddedIdToEmployerModel.Designer.cs">
-      <DependentUpon>201706101616031_AddedIdToEmployerModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706101627538_EmployerNotRequiredToUser.cs" />
-    <Compile Include="Migrations\201706101627538_EmployerNotRequiredToUser.Designer.cs">
-      <DependentUpon>201706101627538_EmployerNotRequiredToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706101634020_DeletedEmployerFromUserFK.cs" />
-    <Compile Include="Migrations\201706101634020_DeletedEmployerFromUserFK.Designer.cs">
-      <DependentUpon>201706101634020_DeletedEmployerFromUserFK.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706101634451_ChangedEmployerPK.cs" />
-    <Compile Include="Migrations\201706101634451_ChangedEmployerPK.Designer.cs">
-      <DependentUpon>201706101634451_ChangedEmployerPK.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706101642044_AddedEmployerToUserFK.cs" />
-    <Compile Include="Migrations\201706101642044_AddedEmployerToUserFK.Designer.cs">
-      <DependentUpon>201706101642044_AddedEmployerToUserFK.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -596,26 +580,14 @@
     <EmbeddedResource Include="Migrations\201702170327241_ChangedIdentityModel.resx">
       <DependentUpon>201702170327241_ChangedIdentityModel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702170359474_SeedingRoles.resx">
+      <DependentUpon>201702170359474_SeedingRoles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706030838489_addedParametersToEmployerModel.resx">
       <DependentUpon>201706030838489_addedParametersToEmployerModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706030925021_EmployersModelDisabledSettedToNullable.resx">
       <DependentUpon>201706030925021_EmployersModelDisabledSettedToNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706101616031_AddedIdToEmployerModel.resx">
-      <DependentUpon>201706101616031_AddedIdToEmployerModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706101627538_EmployerNotRequiredToUser.resx">
-      <DependentUpon>201706101627538_EmployerNotRequiredToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706101634020_DeletedEmployerFromUserFK.resx">
-      <DependentUpon>201706101634020_DeletedEmployerFromUserFK.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706101634451_ChangedEmployerPK.resx">
-      <DependentUpon>201706101634451_ChangedEmployerPK.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706101642044_AddedEmployerToUserFK.resx">
-      <DependentUpon>201706101642044_AddedEmployerToUserFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -167,7 +167,6 @@ namespace EmployersSalary.Controllers
                         {
                             FirstName = model.FirstName,
                             LastName = model.LastName,
-                            RegularEmployer = true,
                         }
                     };
 
@@ -175,7 +174,7 @@ namespace EmployersSalary.Controllers
                 if (result.Succeeded)
                 {
                     //save default profile image
-                    System.IO.File.Copy(Server.MapPath(MyConstants.defaultProfileImage), Server.MapPath(MyConstants.profileImagesPath + user.Employer.Id + ".png") );
+                    System.IO.File.Copy(Server.MapPath(MyConstants.defaultProfileImage), Server.MapPath(MyConstants.profileImagesPath + user.Employer.FirstName + user.Employer.LastName + ".png") );
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

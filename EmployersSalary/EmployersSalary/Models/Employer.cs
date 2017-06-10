@@ -9,18 +9,20 @@ namespace EmployersSalary.Models
 {
     public class Employer
     {
-        public int Id { get; set; }
+        [Key]
+        [Column(Order = 1)]
         [Required]
         [StringLength(225)]
         public string FirstName { get; set; }
         [Required]
         [StringLength(225)]
+        [Key]
+        [Column(Order = 2)]
         public string LastName { get; set; }
         public float? NetSalary { get; private set; }
         [Required]
         public bool IsDisabled { get; private set; } = false;
         public DateTime? DisabledOn { get; private set; }
-        public bool RegularEmployer { get; set; }
 
         public void UpdateSalary(float netSalary)
         {

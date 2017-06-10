@@ -185,6 +185,7 @@ D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.ChangedEmployerPKLenght.resources
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.AddedNamesToApplicationUser.resources
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.ChangedIdentityModel.resources
+D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.SeedingRoles.resources
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.csproj.GenerateResource.Cache
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.dll
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.pdb
@@ -201,9 +202,3 @@ D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\bin\Ninject.Extensions.Co
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\bin\Ninject.Web.Common.xml
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\bin\Ninject.Web.Mvc.xml
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\bin\Ninject.Web.WebApi.xml
-D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.csprojResolveAssemblyReference.cache
-D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.AddedIdToEmployerModel.resources
-D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.EmployerNotRequiredToUser.resources
-D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.DeletedEmployerFromUserFK.resources
-D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.ChangedEmployerPK.resources
-D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.AddedEmployerToUserFK.resources

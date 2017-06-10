@@ -31,9 +31,9 @@ namespace EmployersSalary.Controllers.Api
         // GET /api/employers?firstname=firstName&lastname=lastName
         [Authorize(Roles = RoleName.Admin + "," + RoleName.ProjectManager)]
         [Route("api/employer")]
-        public IHttpActionResult GetEmployer([FromUri] int id)
+        public IHttpActionResult GetEmployer([FromUri] string firstName, string lastName)
         {
-            var employer = _unitOfWork.Employers.GetEmployer(id);
+            var employer = _unitOfWork.Employers.GetEmployer(firstName, lastName);
 
             if (employer == null)
                 return NotFound();
@@ -45,9 +45,9 @@ namespace EmployersSalary.Controllers.Api
         [Authorize(Roles = RoleName.Admin)]
         [HttpPut]
         [Route("api/employers")]
-        public IHttpActionResult UpdateEmployerSalary([FromUri] int id, Employer employer)
+        public IHttpActionResult UpdateEmployerSalary([FromUri] string firstName, string lastName, Employer employer)
         {
-            var employerInDb = _unitOfWork.Employers.GetEmployer(id);
+            var employerInDb = _unitOfWork.Employers.GetEmployer(firstName, lastName);
 
             if (employerInDb == null)
                 return NotFound();
@@ -66,9 +66,9 @@ namespace EmployersSalary.Controllers.Api
         [Authorize(Roles = RoleName.Admin)]
         [HttpDelete]
         [Route("api/employers")]
-        public IHttpActionResult DeleteEmployer([FromUri] int id)
+        public IHttpActionResult DeleteEmployer([FromUri] string firstName, string lastName)
         {
-            var employerInDb = _unitOfWork.Employers.GetEmployer(id);
+            var employerInDb = _unitOfWork.Employers.GetEmployer(firstName, lastName);
 
             if (employerInDb == null)
                 return NotFound();

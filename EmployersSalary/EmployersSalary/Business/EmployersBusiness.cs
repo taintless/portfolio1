@@ -17,12 +17,12 @@ namespace EmployersSalary.Business
 
         public IEnumerable<Employer> GetEmployers()
         {
-            return _context.Employers.Where(e => e.RegularEmployer == true && !e.IsDisabled);
+            return _context.Employers.Where(e => e.FirstName != "Admin" && !e.IsDisabled);
         }
 
-        public Employer GetEmployer(int id)
+        public Employer GetEmployer(string firstName, string lastName)
         {
-            return _context.Employers.SingleOrDefault(x => x.Id == id);            
+            return _context.Employers.SingleOrDefault(c => c.FirstName == firstName && c.LastName == lastName);            
         }
 
     }

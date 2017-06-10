@@ -7,13 +7,13 @@ namespace EmployersSalary.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddedEmployerToUserFK : IMigrationMetadata
+    public sealed partial class SeedingRoles : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedEmployerToUserFK));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedingRoles));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706101642044_AddedEmployerToUserFK"; }
+            get { return "201702170359474_SeedingRoles"; }
         }
         
         string IMigrationMetadata.Source

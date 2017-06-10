@@ -30,7 +30,7 @@ namespace EmployersSalary.Controllers
 
             var loggedUserId = User.Identity.GetUserId();
             var user = _unitOfWork.Users.GetUser(loggedUserId);
-            var employer = _unitOfWork.Employers.GetEmployer(user.Employer.Id);
+            var employer = _unitOfWork.Employers.GetEmployer(user.Employer.FirstName, user.Employer.LastName);
 
             if (employer == null)
                 throw new System.Exception("Employer doesn't exist.");
@@ -46,7 +46,7 @@ namespace EmployersSalary.Controllers
             if (!ModelState.IsValid)
                 return View("EmployerForm", employer);
 
-            var employerInDb = _unitOfWork.Employers.GetEmployer(employer.Id);
+            var employerInDb = _unitOfWork.Employers.GetEmployer(employer.FirstName, employer.LastName);
 
             if (employerInDb == null)
                 throw new System.Exception("Employer doesn't exist.");
@@ -60,10 +60,10 @@ namespace EmployersSalary.Controllers
         }
 
         [System.Web.Mvc.Authorize(Roles = RoleName.Admin)]
-        public ActionResult Edit([FromUri] int id)
+        public ActionResult Edit([FromUri] string firstName, string lastName)
         {
 
-            var employer = _unitOfWork.Employers.GetEmployer(id);
+            var employer = _unitOfWork.Employers.GetEmployer(firstName, lastName);
 
             if (employer == null)
                 throw new System.Exception("Employer doesn't exist.");
@@ -84,7 +84,7 @@ namespace EmployersSalary.Controllers
             {
                 var loggedUserId = User.Identity.GetUserId();
                 var loggedUser = _unitOfWork.Users.GetUser(loggedUserId);
-                string pic = System.IO.Path.GetFileName(loggedUser.Employer.Id + ".png");
+                string pic = System.IO.Path.GetFileName(loggedUser.Employer.FirstName + loggedUser.Employer.LastName+ ".png");
                 string path = System.IO.Path.Combine(
                                         Server.MapPath(MyConstants.profileImagesPath), pic);
                 file.SaveAs(path);

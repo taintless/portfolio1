@@ -9,6 +9,6 @@ namespace EmployersSalary.Services
     public interface IEmployersBusiness
     {
         IEnumerable<Employer> GetEmployers();
-        Employer GetEmployer(int Id);
+        Employer GetEmployer(string firstName, string lastName);
     }
 }
