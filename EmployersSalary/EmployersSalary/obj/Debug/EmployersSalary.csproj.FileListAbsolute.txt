@@ -180,7 +180,6 @@ D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\bin\Microsoft.Owin.Securi
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\bin\Microsoft.Owin.Security.Google.xml
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\bin\Microsoft.Owin.Security.Twitter.xml
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.csprojResolveAssemblyReference.cache
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.InitialSeed.resources
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.CreatedEmployerModel.resources
 D:\sourcery\portfolio1\EmployersSalary\EmployersSalary\obj\Debug\EmployersSalary.Migrations.ChangedEmployerPKLenght.resources

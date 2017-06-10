@@ -22,6 +22,9 @@ namespace EmployersSalary.Controllers.Api
         {
             var employers = _unitOfWork.Employers.GetEmployers().ToList();
 
+            if (employers == null || !employers.Any())
+                return NotFound();
+
             return Ok(employers);
         }
 
