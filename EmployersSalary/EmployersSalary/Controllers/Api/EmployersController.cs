@@ -35,7 +35,7 @@ namespace EmployersSalary.Controllers.Api
         {
             var employer = _unitOfWork.Employers.GetEmployer(firstName, lastName);
 
-            if (employer == null)
+            if (employer == null || employer.IsDisabled == true)
                 return NotFound();
 
             return Ok(employer);
@@ -55,7 +55,7 @@ namespace EmployersSalary.Controllers.Api
             if (!employer.NetSalary.HasValue)
                 return BadRequest();
 
-            employerInDb.UpdateSalary(employer.NetSalary ?? default(float));
+            employerInDb.NetSalary = employer.NetSalary;
 
             _unitOfWork.Comlete();
 
@@ -72,6 +72,9 @@ namespace EmployersSalary.Controllers.Api
 
             if (employerInDb == null)
                 return NotFound();
+
+            if (employerInDb.IsDisabled == true)
+                return BadRequest();
 
             employerInDb.Disable();
 

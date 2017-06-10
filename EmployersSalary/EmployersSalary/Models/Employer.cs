@@ -19,15 +19,10 @@ namespace EmployersSalary.Models
         [Key]
         [Column(Order = 2)]
         public string LastName { get; set; }
-        public float? NetSalary { get; private set; }
+        public float? NetSalary { get; set; }
         [Required]
         public bool IsDisabled { get; private set; } = false;
         public DateTime? DisabledOn { get; private set; }
-
-        public void UpdateSalary(float netSalary)
-        {
-            this.NetSalary = netSalary;
-        }
 
         public void Disable()
         {

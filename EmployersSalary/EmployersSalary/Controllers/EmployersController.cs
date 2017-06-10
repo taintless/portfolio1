@@ -52,7 +52,7 @@ namespace EmployersSalary.Controllers
                 throw new System.Exception("Employer doesn't exist.");
 
             if (employer.NetSalary.HasValue)
-                employerInDb.UpdateSalary(employer.NetSalary ?? default(float));
+                employerInDb.NetSalary = employer.NetSalary;
 
             _unitOfWork.Comlete();
 
