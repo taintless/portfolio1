@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Configuration;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using EmployersSalary.Services;
 
 namespace EmployersSalary.Models
 {
@@ -22,7 +23,7 @@ namespace EmployersSalary.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public DbSet<Employer> Employers { get; set; }
         public ApplicationDbContext()

@@ -2,8 +2,8 @@
 {
     public interface IUnitOfWork
     {
-        IApplicationUserBusiness Users { get; set; }
-        IEmployersBusiness Employers { get; set; }
+        IApplicationUserBusiness Users { get; }
+        IEmployersBusiness Employers { get; }
         void Comlete();
     }
 }

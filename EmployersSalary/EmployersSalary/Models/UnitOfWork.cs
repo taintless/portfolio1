@@ -10,8 +10,8 @@ namespace EmployersSalary.Models
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        public IEmployersBusiness Employers { get; set; }
-        public IApplicationUserBusiness Users { get; set; }
+        public IEmployersBusiness Employers { get; private set; }
+        public IApplicationUserBusiness Users { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;

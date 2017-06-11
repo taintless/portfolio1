@@ -8,9 +8,9 @@ namespace EmployersSalary.Business
 {
     public class EmployersBusiness : IEmployersBusiness
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public EmployersBusiness(ApplicationDbContext context)
+        public EmployersBusiness(IApplicationDbContext context)
         {
             _context = context;
         }
